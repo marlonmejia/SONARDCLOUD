@@ -13,9 +13,14 @@ public class  DNASequencer {
     public String calculate(List<String> part){
         String valuef= part.get(1);
         for (int i=1;i<part.size();i++){
-            for (int j=0;j<valuef.length();j++) {
-                if(valuef.charAt(j)!= part.get(i).charAt(j)){
-                    valuef=valuef+part.get(i).charAt(j);
+            for (int j=0;j<part.get(i).length();j++) {
+                if(valuef.substring(j)==part.get(i)){
+                    valuef=valuef+part.get(i+1);
+                }
+                for(int k=part.get(i).length();k>=0;k--){
+                    if (valuef.substring(k)==part.get(i).substring(j)){
+                        valuef=valuef+part.get(i).substring(j+1);
+                    }
                 }
             }
         }
