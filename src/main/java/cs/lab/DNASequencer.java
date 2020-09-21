@@ -10,20 +10,26 @@ public class  DNASequencer {
         logger.info("Starting sequencer...");
     }
 
-    public String calculate(List<String> part){
-        String valuef= part.get(1);
-        for (int i=1;i<part.size();i++){
-            for (int j=0;j<part.get(i).length();j++) {
-                if(valuef.substring(j)==part.get(i)){
-                    valuef=valuef+part.get(i+1);
-                }
-                for(int k=part.get(i).length();k>=0;k--){
-                    if (valuef.substring(k)==part.get(i).substring(j)){
-                        valuef=valuef+part.get(i).substring(j+1);
-                    }
+    public String calculate(List<String> part) throws LenghtException, QuantityException {
+        for(String itew:part){
+            if(itew.length()>200){
+                throw new LenghtException("Sequences not supported");
+            }
+        }
+        if(part.size()>1600000){
+            throw new QuantityException("Subsequences not supported");
+        }
+        StringBuilder result= new StringBuilder(part.get(0));
+        for(int i=1;i<part.size();i++ ) {
+            String elementlist = part.get(i);
+            StringBuilder temp = new StringBuilder();
+            for (int j = 0; j < elementlist.length(); j++) {
+                temp.append(elementlist.charAt(j));
+                if (!(result.toString().contains(temp))) {
+                    result.append(elementlist.charAt(j));
                 }
             }
         }
-        return valuef;
+        return result.toString();
     }
 }
